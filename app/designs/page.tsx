@@ -68,9 +68,11 @@ export default function DesignsPage() {
     <div className="min-h-screen text-white">
       {/* Navigation */}
       <nav className="flex items-center justify-between p-6 lg:px-12">
-        <div className="text-4xl font-black tracking-wider">
-          <span className="text-orange-500">COZY</span>
-        </div>
+<div className="w-[120px]">
+  <Link href="/">
+    <img src="/cozy-navbar.webp" alt="Cozy logo" className="w-full h-auto" />
+  </Link>
+</div>
         <div className="hidden md:flex items-center space-x-8">
           <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
           <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
@@ -116,7 +118,7 @@ export default function DesignsPage() {
                     onClick={() => openImageModal(project.id)}
                   >
                     <img
-                      src="/projects/cozy-website-v1.png"
+                      src="/projects/cozy-website-v1.webp"
                       alt={project.title}
                       className="w-full h-full object-cover"
                     />
@@ -204,7 +206,7 @@ export default function DesignsPage() {
                 <img
                   src={
                     selectedProject.id === 1
-                      ? "/projects/cozy-website-v1.png"
+                      ? "/projects/cozy-website-v1.webp"
                       : "/placeholder.svg?height=600&width=800&text=Design+Preview"
                   }
                   alt={selectedProject.title}

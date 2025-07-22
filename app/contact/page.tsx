@@ -11,9 +11,11 @@ export default function ContactPage() {
     <div className="min-h-screen text-white">
       {/* Navigation */}
       <nav className="flex items-center justify-between p-6 lg:px-12">
-        <div className="text-3xl font-black tracking-wider">
-          <span className="text-orange-500">COZY</span>
-        </div>
+<div className="w-[120px]">
+  <Link href="/">
+    <img src="/cozy-navbar.webp" alt="Cozy logo" className="w-full h-auto" />
+  </Link>
+</div>
         <div className="hidden md:flex items-center space-x-8">
           <Link href="/" className="text-gray-300 hover:text-white transition-colors">
             Home
