@@ -1,19 +1,37 @@
+"use client"
 import Link from "next/link"
 import { Clock, Shield, Briefcase, ChevronDown } from "lucide-react"
 import { InteractiveButton } from "@/components/interactive-button"
 import { Footer } from "@/components/footer"
 import { ContactButton } from "@/components/contact-button"
+import React from "react"
+
+// Client component for logo scroll-to-top
+function ScrollLogo() {
+  return (
+    <img
+      src="/cozy-navbar.webp"
+      alt="Cozy logo"
+      className="w-full h-auto cursor-pointer"
+      onClick={() =>
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        })
+      }
+    />
+  )
+}
 
 export default function HomePage() {
   return (
     <div className="min-h-screen text-white">
       {/* Navigation */}
       <nav className="flex items-center justify-between p-6 lg:px-12 animate-fade-in">
-<div className="w-[120px]">
-  <Link href="/">
-    <img src="/cozy-navbar.webp" alt="Cozy logo" className="w-full h-auto" />
-  </Link>
-</div>
+        <div className="w-[120px]">
+          {/* Logo clickable, scrolls to top */}
+          <ScrollLogo />
+        </div>
         <div className="hidden md:flex items-center space-x-8">
           <Link href="/" className="text-white border-b-2 border-white pb-1">
             Home
@@ -86,25 +104,46 @@ export default function HomePage() {
             <p className="text-gray-400 text-lg">Explore some of my recent design projects</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item, index) => (
-              <div
-                key={item}
-                className={`bg-zinc-900/80 rounded-xl p-6 hover:bg-zinc-800/90 transition-all duration-300 hover:scale-105 animate-fade-in-up`}
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <div className="aspect-video bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 rounded-lg mb-4 img-fade">
-                  {/* Image content would go here */}
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Design Project {item}</h3>
-                <p className="text-gray-400 mb-4">
-                  A thoughtful approach to user experience design with clean aesthetics.
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-orange-500 font-semibold">UI/UX Design</span>
-                  <span className="text-gray-500 text-sm">2024</span>
-                </div>
+            {/* Replace placeholders with real projects */}
+            <div className="bg-zinc-900/80 rounded-xl p-6 hover:bg-zinc-800/90 transition-all duration-300 hover:scale-105 animate-fade-in-up" style={{ animationDelay: `0s` }}>
+              <div className="aspect-video rounded-lg mb-4 img-fade overflow-hidden">
+                <img src="/projects/cozy-website-v1.webp" alt="Cozy Website V1" className="w-full h-full object-cover" />
               </div>
-            ))}
+              <h3 className="text-xl font-semibold mb-2">Cozy Website V1</h3>
+              <p className="text-gray-400 mb-4">
+                A modern website made for me, the first version.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-orange-500 font-semibold">Web Design</span>
+                <span className="text-gray-500 text-sm">July 2025</span>
+              </div>
+            </div>
+            <div className="bg-zinc-900/80 rounded-xl p-6 hover:bg-zinc-800/90 transition-all duration-300 hover:scale-105 animate-fade-in-up" style={{ animationDelay: `0.2s` }}>
+              <div className="aspect-video rounded-lg mb-4 img-fade overflow-hidden">
+                <img src="/projects/login-2.webp" alt="Login Page Concept 2" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Login Page Concept 2</h3>
+              <p className="text-gray-400 mb-4">
+                An alternative login page design with a cleaner glassy aesthetic.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-orange-500 font-semibold">UI/UX Design</span>
+                <span className="text-gray-500 text-sm">2023</span>
+              </div>
+            </div>
+            <div className="bg-zinc-900/80 rounded-xl p-6 hover:bg-zinc-800/90 transition-all duration-300 hover:scale-105 animate-fade-in-up" style={{ animationDelay: `0.4s` }}>
+              <div className="aspect-video rounded-lg mb-4 img-fade overflow-hidden">
+                <img src="/projects/roblox-2.webp" alt="Roblox Interface Redesign Game" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Roblox Interface Redesign Game</h3>
+              <p className="text-gray-400 mb-4">
+                Another immersive world created for a Roblox experience.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-orange-500 font-semibold">UI/UX Design</span>
+                <span className="text-gray-500 text-sm">2023</span>
+              </div>
+            </div>
           </div>
           <div className="text-center mt-12 animate-fade-in-up animate-delay-600">
             <Link href="/designs">

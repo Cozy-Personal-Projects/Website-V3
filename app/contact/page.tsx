@@ -1,5 +1,8 @@
+"use client"
+
+import React, { useState } from "react"
 import Link from "next/link"
-import { ArrowLeft, Mail, MessageCircle, Send } from "lucide-react"
+import { ArrowLeft, Mail, MessageCircle, Send, UserRound } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -7,6 +10,40 @@ import { InteractiveButton } from "@/components/interactive-button"
 import { Footer } from "@/components/footer"
 
 export default function ContactPage() {
+  // Form state
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+  const [showFallback, setShowFallback] = useState(false)
+
+  // Simple sanitization: remove newlines and encode URI components
+  function sanitize(str: string) {
+    return encodeURIComponent(str.replace(/[\r\n]+/g, " ").replace(/%0A|%0D/gi, ""))
+  }
+
+  // Handle input change
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setForm({ ...form, [e.target.id]: e.target.value })
+  }
+
+  // Handle form submit
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    const to = "cozyhqinquiries@gmail.com"
+    const subject = sanitize(form.subject || "Project Inquiry")
+    const body = sanitize(
+      `Name: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
+    )
+    // Try to open mail client
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
+    // Show fallback after a short delay (user can close modal if mail client opened)
+    setTimeout(() => setShowFallback(true), 1500)
+  }
+
   return (
     <div className="min-h-screen text-white">
       {/* Navigation */}
@@ -73,7 +110,17 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold">Email</h3>
-                    <p className="text-gray-400">hello@cozydesign.com</p>
+                    <p className="text-gray-400">cozyhqinquiries@gmail.com</p>
+                  </div>
+                </div>
+                {/* Discord Contact */}
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                    <UserRound className="w-6 h-6 text-black" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">Discord</h3>
+                    <p className="text-gray-400">@cozyhq</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -82,7 +129,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold">Response Time</h3>
-                    <p className="text-gray-400">Usually within 24 hours</p>
+                    <p className="text-gray-400">Usually within 24 hours email, less on Discord</p>
                   </div>
                 </div>
               </div>
@@ -100,7 +147,7 @@ export default function ContactPage() {
 
             {/* Contact Form */}
             <div className="bg-zinc-900 p-8 rounded-2xl">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="firstName" className="text-white">
@@ -110,6 +157,9 @@ export default function ContactPage() {
                       id="firstName"
                       className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500"
                       placeholder="John"
+                      value={form.firstName}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="space-y-2">
@@ -120,6 +170,9 @@ export default function ContactPage() {
                       id="lastName"
                       className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500"
                       placeholder="Doe"
+                      value={form.lastName}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -133,6 +186,9 @@ export default function ContactPage() {
                     type="email"
                     className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500"
                     placeholder="john@example.com"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -144,6 +200,9 @@ export default function ContactPage() {
                     id="subject"
                     className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500"
                     placeholder="Project Inquiry"
+                    value={form.subject}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -155,6 +214,9 @@ export default function ContactPage() {
                     id="message"
                     className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500 min-h-[120px]"
                     placeholder="Tell me about your project..."
+                    value={form.message}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -163,6 +225,31 @@ export default function ContactPage() {
                   Send Message
                 </InteractiveButton>
               </form>
+              {showFallback && (
+                <div className="mt-6 bg-zinc-800 p-4 rounded-xl text-center">
+                  <p className="mb-2 text-orange-400 font-semibold">
+                    If your mail app did not open, please copy and send manually:
+                  </p>
+                  <div className="mb-2 text-gray-300 text-sm">
+                    <b>Email:</b> cozyhqinquiries@gmail.com
+                  </div>
+                  <div className="mb-2 text-gray-300 text-sm">
+                    <b>Subject:</b> {form.subject}
+                  </div>
+                  <div className="mb-2 text-gray-300 text-sm">
+                    <b>Message:</b> <br />
+                    Name: {form.firstName} {form.lastName}<br />
+                    Email: {form.email}<br />
+                    {form.message}
+                  </div>
+                  <button
+                    className="mt-2 px-4 py-2 bg-orange-500 rounded text-black font-bold"
+                    onClick={() => setShowFallback(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -199,7 +286,9 @@ export default function ContactPage() {
       </section>
 
       {/* Footer */}
-      <Footer />
+      <Footer>
+        <img src="/cozy-navbar.webp" alt="Cozy logo" className="h-6 w-auto inline" />
+      </Footer>
     </div>
   )
 }
