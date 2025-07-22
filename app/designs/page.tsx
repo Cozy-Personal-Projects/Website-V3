@@ -16,41 +16,47 @@ export default function DesignsPage() {
       category: "Web Design",
       year: "July 2025",
       description: "A modern website made for me, the first version.",
+      image: "/projects/cozy-website-v1.webp", // Added image path
     },
     {
       id: 2,
-      title: "Mobile Banking App",
-      category: "Mobile Design",
-      year: "2024",
-      description: "Intuitive mobile banking interface designed for security and ease of use.",
+      title: "Roblox Interface Redesign Home", // Changed title to match new image
+      category: "UI/UX Design", // Changed category
+      year: "2023",
+      description: "A unique world designed for a Roblox game.", // Updated description
+      image: "/projects/roblox-1.webp", // Added image path
     },
     {
       id: 3,
-      title: "SaaS Dashboard",
-      category: "UI/UX Design",
+      title: "Roblox Interface Redesign Game", // Changed title to match new image
+      category: "UI/UX Design", // Changed category
       year: "2023",
-      description: "Clean and functional dashboard for a project management SaaS platform.",
+      description: "Another immersive world created for a Roblox experience.", // Updated description
+      image: "/projects/roblox-2.webp", // Added image path
     },
     {
       id: 4,
-      title: "Brand Identity",
-      category: "Branding",
-      year: "2023",
-      description: "Complete brand identity design for a sustainable fashion startup.",
+      title: "Yalp Logo & Banner", // Changed title to match new image
+      category: "Design", // Changed category
+      year: "2022",
+      description: "A sleek redesign for a past \"Roblox Revival\" service.", // Updated description
+      image: "/projects/yalp.webp", // Added image path
     },
     {
       id: 5,
-      title: "Portfolio Website",
-      category: "Web Design",
-      year: "2023",
-      description: "Personal portfolio website for a creative professional.",
+      title: "Login Page Concept 1", // Changed title to match new image
+      category: "UI/UX Design", // Changed category
+      year: "2022",
+      description: "Modern login interface design focusing on user experience.", // Updated description
+      image: "/projects/login-1.webp", // Added image path
     },
     {
       id: 6,
-      title: "Food Delivery App",
-      category: "Mobile Design",
+      title: "Login Page Concept 2", // Changed title to match new image
+      category: "UI/UX Design", // Changed category
       year: "2023",
-      description: "User-friendly food delivery app with focus on quick ordering process.",
+      description: "An alternative login page design with a cleaner glassy aesthetic.", // Updated description
+      image: "/projects/login-2.webp", // Added image path
     },
   ]
 
@@ -68,11 +74,11 @@ export default function DesignsPage() {
     <div className="min-h-screen text-white">
       {/* Navigation */}
       <nav className="flex items-center justify-between p-6 lg:px-12">
-<div className="w-[120px]">
-  <Link href="/">
-    <img src="/cozy-navbar.webp" alt="Cozy logo" className="w-full h-auto" />
-  </Link>
-</div>
+        <div className="w-[120px]">
+          <Link href="/">
+            <img src="/cozy-navbar.webp" alt="Cozy logo" className="w-full h-auto" />
+          </Link>
+        </div>
         <div className="hidden md:flex items-center space-x-8">
           <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
           <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
@@ -112,30 +118,20 @@ export default function DesignsPage() {
                 key={project.id}
                 className="bg-zinc-900/80 rounded-xl overflow-hidden hover:bg-zinc-800/90 transition-colors group"
               >
-                {project.id === 1 ? (
-                  <div
-                    className="aspect-video relative cursor-pointer group"
-                    onClick={() => openImageModal(project.id)}
-                  >
-                    <img
-                      src="/projects/cozy-website-v1.webp"
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all flex items-center justify-center">
-                      <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
+                {/* Changed this section to use project.image for all projects */}
+                <div
+                  className="aspect-video relative cursor-pointer group"
+                  onClick={() => openImageModal(project.id)}
+                >
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all flex items-center justify-center">
+                    <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                ) : (
-                  <div
-                    className="aspect-video bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 relative img-fade cursor-pointer"
-                    onClick={() => openImageModal(project.id)}
-                  >
-                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all flex items-center justify-center">
-                      <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                  </div>
-                )}
+                </div>
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-orange-500 text-sm font-semibold">{project.category}</span>
@@ -204,11 +200,7 @@ export default function DesignsPage() {
             <div className="relative bg-zinc-900 rounded-lg overflow-hidden">
               <div className="aspect-video relative">
                 <img
-                  src={
-                    selectedProject.id === 1
-                      ? "/projects/cozy-website-v1.webp"
-                      : "/placeholder.svg?height=600&width=800&text=Design+Preview"
-                  }
+                  src={selectedProject.image} // Changed to use selectedProject.image
                   alt={selectedProject.title}
                   className="w-full h-full object-cover"
                 />

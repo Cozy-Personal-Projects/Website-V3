@@ -42,9 +42,7 @@ export default function HomePage() {
             for Digital products
           </h1>
           <p className="text-gray-300 text-lg lg:text-xl mb-10 max-w-4xl mx-auto leading-relaxed animate-fade-in-up animate-delay-200">
-            I'm a <span className="text-orange-500">designer</span> focused on creating clean, user-friendly UIs and
-            thoughtful product design. I blend aesthetics with usability to craft digital experiences that are both
-            functional and visually engaging.
+            I'm a <span className="text-orange-500">designer</span> who focuses on making UIs that are clean and easy to use, along with thoughtful product design. I mix good looks with usability to create digital experiences that work well and look great.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16 animate-fade-in-up animate-delay-400">
             <Link href="/designs">
