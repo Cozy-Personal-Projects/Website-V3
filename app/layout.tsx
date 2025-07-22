@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./style.css"
+import "styles/style.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { GridBackground } from "@/components/grid-background"
 
