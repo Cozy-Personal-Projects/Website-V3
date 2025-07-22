@@ -68,7 +68,7 @@ export default function DesignsPage() {
     <div className="min-h-screen text-white">
       {/* Navigation */}
       <nav className="flex items-center justify-between p-6 lg:px-12">
-        <div className="text-3xl font-black tracking-wider">
+        <div className="text-4xl font-black tracking-wider">
           <span className="text-orange-500">COZY</span>
         </div>
         <div className="hidden md:flex items-center space-x-8">
@@ -77,7 +77,7 @@ export default function DesignsPage() {
           <Link href="/designs" className="text-white border-b-2 border-white pb-1">Designs</Link>
         </div>
         <Link href="/contact">
-          <InteractiveButton>Contact Me</InteractiveButton>
+          <InteractiveButton className="px-6 py-3">Contact Me</InteractiveButton>
         </Link>
       </nav>
 
