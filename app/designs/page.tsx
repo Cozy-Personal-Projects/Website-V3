@@ -12,10 +12,10 @@ export default function DesignsPage() {
   const projects = [
     {
       id: 1,
-      title: "E-commerce Platform",
+      title: "Cozy Website V1",
       category: "Web Design",
-      year: "2024",
-      description: "A modern e-commerce platform with focus on user experience and conversion optimization.",
+      year: "July 2025",
+      description: "A modern website made for me, the first version.",
     },
     {
       id: 2,
@@ -72,15 +72,9 @@ export default function DesignsPage() {
           <span className="text-orange-500">COZY</span>
         </div>
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-            Home
-          </Link>
-          <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
-            About
-          </Link>
-          <Link href="/designs" className="text-white border-b-2 border-white pb-1">
-            Designs
-          </Link>
+          <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
+          <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
+          <Link href="/designs" className="text-white border-b-2 border-white pb-1">Designs</Link>
         </div>
         <Link href="/contact">
           <InteractiveButton>Contact Me</InteractiveButton>
@@ -116,14 +110,30 @@ export default function DesignsPage() {
                 key={project.id}
                 className="bg-zinc-900/80 rounded-xl overflow-hidden hover:bg-zinc-800/90 transition-colors group"
               >
-                <div
-                  className="aspect-video bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 relative img-fade cursor-pointer"
-                  onClick={() => openImageModal(project.id)}
-                >
-                  <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all flex items-center justify-center">
-                    <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                {project.id === 1 ? (
+                  <div
+                    className="aspect-video relative cursor-pointer group"
+                    onClick={() => openImageModal(project.id)}
+                  >
+                    <img
+                      src="/projects/cozy-website-v1.png"
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all flex items-center justify-center">
+                      <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div
+                    className="aspect-video bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 relative img-fade cursor-pointer"
+                    onClick={() => openImageModal(project.id)}
+                  >
+                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all flex items-center justify-center">
+                      <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                  </div>
+                )}
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-orange-500 text-sm font-semibold">{project.category}</span>
@@ -146,34 +156,23 @@ export default function DesignsPage() {
             <p className="text-gray-400 text-lg">How I approach each project to ensure the best results</p>
           </div>
           <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl relative">
-                <div className="absolute inset-0 border-2 border-orange-300 rounded-full opacity-50"></div>1
+            {["Discover", "Define", "Design", "Deliver"].map((step, index) => (
+              <div key={step} className="text-center">
+                <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl relative">
+                  <div className="absolute inset-0 border-2 border-orange-300 rounded-full opacity-50"></div>
+                  {index + 1}
+                </div>
+                <h3 className="text-lg font-semibold mb-2">{step}</h3>
+                <p className="text-gray-400 text-sm">
+                  {[
+                    "Understanding your goals, users, and requirements",
+                    "Creating a clear strategy and project roadmap",
+                    "Crafting the visual and interactive experience",
+                    "Final refinements and handoff for development",
+                  ][index]}
+                </p>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Discover</h3>
-              <p className="text-gray-400 text-sm">Understanding your goals, users, and requirements</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl relative">
-                <div className="absolute inset-0 border-2 border-orange-300 rounded-full opacity-50"></div>2
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Define</h3>
-              <p className="text-gray-400 text-sm">Creating a clear strategy and project roadmap</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl relative">
-                <div className="absolute inset-0 border-2 border-orange-300 rounded-full opacity-50"></div>3
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Design</h3>
-              <p className="text-gray-400 text-sm">Crafting the visual and interactive experience</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl relative">
-                <div className="absolute inset-0 border-2 border-orange-300 rounded-full opacity-50"></div>4
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Deliver</h3>
-              <p className="text-gray-400 text-sm">Final refinements and handoff for development</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -201,15 +200,16 @@ export default function DesignsPage() {
 
             {/* Image Container */}
             <div className="relative bg-zinc-900 rounded-lg overflow-hidden">
-              {/* Main Image */}
-              <div className="aspect-video bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 relative">
-                {/* Placeholder for actual image */}
+              <div className="aspect-video relative">
                 <img
-                  src="/placeholder.svg?height=600&width=800&text=Design+Preview"
+                  src={
+                    selectedProject.id === 1
+                      ? "/projects/cozy-website-v1.png"
+                      : "/placeholder.svg?height=600&width=800&text=Design+Preview"
+                  }
                   alt={selectedProject.title}
                   className="w-full h-full object-cover"
                 />
-                {/* Dark overlay for better text readability */}
                 <div className="absolute inset-0 bg-black/20"></div>
               </div>
 
