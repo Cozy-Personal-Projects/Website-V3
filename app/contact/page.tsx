@@ -88,7 +88,7 @@ export default function ContactPage() {
 
       {/* Back Button */}
       <div className="px-6 lg:px-12 pt-6">
-        <Link href="/" className="inline-flex items-center text-gray-400 hover:text-white transition-colors">
+        <Link href="/" className="inline-flex items-center text-gray-400 hover:text-white transition-colors interactive-cta-cursor">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
         </Link>
@@ -172,7 +172,7 @@ export default function ContactPage() {
                     </Label>
                     <Input
                       id="firstName"
-                      className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500"
+                      className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500 interactive-cta-cursor"
                       placeholder="John"
                       value={form.firstName}
                       onChange={handleChange}
@@ -185,7 +185,7 @@ export default function ContactPage() {
                     </Label>
                     <Input
                       id="lastName"
-                      className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500"
+                      className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500 interactive-cta-cursor"
                       placeholder="Doe"
                       value={form.lastName}
                       onChange={handleChange}
@@ -201,7 +201,7 @@ export default function ContactPage() {
                   <Input
                     id="email"
                     type="email"
-                    className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500"
+                    className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500 interactive-cta-cursor"
                     placeholder="john@example.com"
                     value={form.email}
                     onChange={handleChange}
@@ -215,7 +215,7 @@ export default function ContactPage() {
                   </Label>
                   <Input
                     id="subject"
-                    className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500"
+                    className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500 interactive-cta-cursor"
                     placeholder="Project Inquiry"
                     value={form.subject}
                     onChange={handleChange}
@@ -229,7 +229,7 @@ export default function ContactPage() {
                   </Label>
                   <Textarea
                     id="message"
-                    className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500 min-h-[120px]"
+                    className="bg-zinc-800 border-zinc-700 text-white focus:border-orange-500 min-h-[120px] interactive-cta-cursor"
                     placeholder="Tell me about your project..."
                     value={form.message}
                     onChange={handleChange}

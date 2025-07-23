@@ -13,7 +13,7 @@ function ScrollLogo() {
     <img
       src="/cozy-navbar.webp"
       alt="Cozy logo"
-      className={`w-full h-auto cursor-pointer transition-transform duration-200 ${active ? "scale-90" : "hover:scale-110"}`}
+      className={`w-full h-auto interactive-cta-cursor cursor-pointer transition-transform duration-200 ${active ? "scale-90" : "hover:scale-110"}`}
       onClick={() => {
         setActive(true)
         window.scrollTo({ top: 0, behavior: "smooth" })
@@ -67,13 +67,13 @@ export default function HomePage() {
           <ScrollLogo />
         </div>
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="/" className="text-white border-b-2 border-white pb-1">
+          <Link href="/" className="text-white border-b-2 border-white pb-1 interactive-cta-cursor">
             Home
           </Link>
-          <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/about" className="text-gray-300 hover:text-white transition-colors interactive-cta-cursor">
             About
           </Link>
-          <Link href="/designs" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/designs" className="text-gray-300 hover:text-white transition-colors interactive-cta-cursor">
             Designs
           </Link>
         </div>
@@ -145,7 +145,7 @@ export default function HomePage() {
               >
                 {/* Image with modal open on click */}
                 <div
-                  className="aspect-video relative cursor-pointer group"
+                  className="aspect-video relative cursor-pointer group interactive-cta-cursor"
                   onClick={() => openImageModal(project.id)}
                 >
                   <img
@@ -223,17 +223,17 @@ export default function HomePage() {
               {
                 icon: Clock,
                 title: "Fast Delivery",
-                desc: "Quick turnaround times without compromising on quality. I understand the importance of meeting deadlines.",
+                desc: "I will try my best to make sure your project is delivered on time, without compromising quality.",
               },
               {
                 icon: Shield,
                 title: "Reliable Process",
-                desc: "Consistent communication and a proven design process that ensures your project stays on track.",
+                desc: "Consistent communication and a simple yet effective design process that ensures your project stays on track.",
               },
               {
                 icon: Briefcase,
                 title: "Proven Experience",
-                desc: "Over 50 successful projects across various industries, from startups to established brands.",
+                desc: "Over 50 projects made for various people and companies, and many more to come.",
               },
             ].map((item, index) => (
               <div
@@ -241,7 +241,7 @@ export default function HomePage() {
                 className={`text-center animate-fade-in-up`}
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
-                <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 relative hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-orange-500 rounded-full border-2 border-orange-400 flex items-center justify-center mx-auto mb-4 relative hover:scale-110 transition-transform duration-300">
                   <item.icon className="w-8 h-8 text-white opacity-80 hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{item.title}</h3>

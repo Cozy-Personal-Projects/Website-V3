@@ -5,6 +5,7 @@ import { ArrowLeft, ExternalLink, X } from "lucide-react"
 import { InteractiveButton } from "@/components/interactive-button"
 import { ContactButton } from "@/components/contact-button"
 import React, { useState } from "react"
+import { Footer } from "@/components/footer"
 
 function ScrollLogo() {
   const [active, setActive] = useState(false)
@@ -12,7 +13,7 @@ function ScrollLogo() {
     <img
       src="/cozy-navbar.webp"
       alt="Cozy logo"
-      className={`w-full h-auto cursor-pointer transition-transform duration-200 ${active ? "scale-90" : "hover:scale-110"}`}
+      className={`w-full h-auto cursor-pointer transition-transform duration-200 interactive-cta-cursor ${active ? "scale-90" : "hover:scale-110"}`}
       onClick={() => {
         setActive(true)
         window.scrollTo({ top: 0, behavior: "smooth" })
@@ -97,9 +98,9 @@ export default function DesignsPage() {
           </Link>
         </div>
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
-          <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
-          <Link href="/designs" className="text-white border-b-2 border-white pb-1">Designs</Link>
+          <Link href="/" className="text-gray-300 hover:text-white transition-colors interactive-cta-cursor">Home</Link>
+          <Link href="/about" className="text-gray-300 hover:text-white transition-colors interactive-cta-cursor">About</Link>
+          <Link href="/designs" className="text-white border-b-2 border-white pb-1 interactive-cta-cursor">Designs</Link>
         </div>
         <Link href="/contact">
           <InteractiveButton className="px-6 py-3">Contact Me</InteractiveButton>
@@ -108,7 +109,7 @@ export default function DesignsPage() {
 
       {/* Back Button */}
       <div className="px-6 lg:px-12 pt-6">
-        <Link href="/" className="inline-flex items-center text-gray-400 hover:text-white transition-colors">
+        <Link href="/" className="inline-flex items-center text-gray-400 hover:text-white transition-colors interactive-cta-cursor">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
         </Link>
@@ -137,7 +138,7 @@ export default function DesignsPage() {
               >
                 {/* Changed this section to use project.image for all projects */}
                 <div
-                  className="aspect-video relative cursor-pointer group"
+                  className="aspect-video relative cursor-pointer group interactive-cta-cursor"
                   onClick={() => openImageModal(project.id)}
                 >
                   <img
@@ -237,6 +238,9 @@ export default function DesignsPage() {
           </div>
         </div>
       )}
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

@@ -13,7 +13,7 @@ function ScrollLogo() {
     <img
       src="/cozy-navbar.webp"
       alt="Cozy logo"
-      className={`w-full h-auto cursor-pointer transition-transform duration-200 ${active ? "scale-90" : "hover:scale-110"}`}
+      className={`w-full h-auto cursor-pointer transition-transform duration-200 interactive-cta-cursor ${active ? "scale-90" : "hover:scale-110"}`}
       onClick={() => {
         setActive(true)
         window.scrollTo({ top: 0, behavior: "smooth" })
@@ -35,13 +35,13 @@ export default function AboutPage() {
           </Link>
         </div>
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="/" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/" className="text-gray-300 hover:text-white transition-colors interactive-cta-cursor">
             Home
           </Link>
-          <Link href="/about" className="text-white border-b-2 border-white pb-1">
+          <Link href="/about" className="text-white border-b-2 border-white pb-1 interactive-cta-cursor">
             About
           </Link>
-          <Link href="/designs" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/designs" className="text-gray-300 hover:text-white transition-colors interactive-cta-cursor">
             Designs
           </Link>
         </div>
@@ -52,7 +52,7 @@ export default function AboutPage() {
 
       {/* Back Button */}
       <div className="px-6 lg:px-12 pt-6 animate-fade-in animate-delay-200">
-        <Link href="/" className="inline-flex items-center text-gray-400 hover:text-white transition-colors">
+        <Link href="/" className="inline-flex items-center text-gray-400 hover:text-white transition-colors interactive-cta-cursor">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
         </Link>

@@ -1,86 +1,73 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 
 export function CursorHighlight() {
-  const [pos, setPos] = useState({ x: 0, y: 0 })
-  const [hovering, setHovering] = useState(false)
-  const requestRef = useRef<number | undefined>(undefined)
   const cursorRef = useRef<HTMLDivElement>(null)
-  const styleTagRef = useRef<HTMLStyleElement | null>(null)
+  const mouseX = useRef(0)
+  const mouseY = useRef(0)
+  const currentX = useRef(0)
+  const currentY = useRef(0)
+  const currentScale = useRef(1)
+  const targetScale = useRef(1)
+  const isHovering = useRef(false)
+  const rafRef = useRef<number | null>(null)
 
-  // Track mouse position
+
+  // Update target position on mouse move
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY })
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.current = e.clientX
+      mouseY.current = e.clientY
     }
-    window.addEventListener("mousemove", move)
-    return () => window.removeEventListener("mousemove", move)
+
+    document.addEventListener("mousemove", handleMouseMove)
+    return () => document.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
-  // Listen for hover on CTA buttons (fix flicker by tracking enter/leave on document and using a global flag)
+  // Detect hovering over interactive elements
   useEffect(() => {
-    let isHovering = false
-    let lastTarget: HTMLElement | null = null
-
     const handlePointerMove = (e: PointerEvent) => {
-      const target = (e.target as HTMLElement)?.closest(".interactive-cta-cursor")
-      if (target && !isHovering) {
-        isHovering = true
-        setHovering(true)
-      } else if (!target && isHovering) {
-        isHovering = false
-        setHovering(false)
+      const el = (e.target as HTMLElement)?.closest(".interactive-cta-cursor")
+      const hoverNow = !!el
+      if (hoverNow !== isHovering.current) {
+        isHovering.current = hoverNow
+        targetScale.current = hoverNow ? 1.25 : 1
       }
-      lastTarget = target
     }
 
     document.addEventListener("pointermove", handlePointerMove)
+    return () => document.removeEventListener("pointermove", handlePointerMove)
+  }, [])
+
+  // Animate cursor smoothly
+  useEffect(() => {
+    const animate = () => {
+      currentX.current += (mouseX.current - currentX.current) * 0.2
+      currentY.current += (mouseY.current - currentY.current) * 0.2
+      currentScale.current += (targetScale.current - currentScale.current) * 0.15
+
+      const el = cursorRef.current
+      if (el) {
+        el.style.transform = `translate3d(${currentX.current - 12}px, ${currentY.current - 12}px, 0) scale(${currentScale.current})`
+      }
+
+      rafRef.current = requestAnimationFrame(animate)
+    }
+
+    rafRef.current = requestAnimationFrame(animate)
     return () => {
-      document.removeEventListener("pointermove", handlePointerMove)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
   }, [])
 
-  // Animate cursor position and scale
+  // Hide system cursor
   useEffect(() => {
-    let lastX = pos.x
-    let lastY = pos.y
-    let lastScale = 1
-    const animate = () => {
-      if (cursorRef.current) {
-        lastX += (pos.x - lastX) * 0.25
-        lastY += (pos.y - lastY) * 0.25
-        const targetScale = hovering ? 1.25 : 1
-        lastScale += (targetScale - lastScale) * 0.18
-        cursorRef.current.style.transform = `translate3d(${lastX - 12}px, ${lastY - 12}px, 0) scale(${lastScale})`
-      }
-      requestRef.current = requestAnimationFrame(animate)
-    }
-    requestRef.current = requestAnimationFrame(animate)
-    return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current)
-    }
-  }, [pos.x, pos.y, hovering])
-
-  // Hide native cursor always, even when hovering buttons
-  useEffect(() => {
-    // Remove old style if present
-    if (styleTagRef.current) {
-      document.head.removeChild(styleTagRef.current)
-      styleTagRef.current = null
-    }
-    // Add new style
     const style = document.createElement("style")
-    style.innerHTML = `
-      html, body, * { cursor: none !important; }
-    `
+    style.innerHTML = `* { cursor: none !important; }`
     document.head.appendChild(style)
-    styleTagRef.current = style
     return () => {
-      if (styleTagRef.current) {
-        document.head.removeChild(styleTagRef.current)
-        styleTagRef.current = null
-      }
+      document.head.removeChild(style)
     }
   }, [])
 
@@ -89,19 +76,20 @@ export function CursorHighlight() {
       ref={cursorRef}
       style={{
         position: "fixed",
-        left: 0,
         top: 0,
-        width: 24,
-        height: 24,
-        borderRadius: "50%",
+        left: 0,
+        width: 20,
+        height: 20,
         pointerEvents: "none",
-        zIndex: 9999,
+        borderRadius: "50%",
         background: "rgba(255,255,255,0.13)",
         border: "2px solid rgba(255,255,255,0.25)",
-        boxShadow: "0 0 16px 2px rgba(255,255,255,0.10)",
-        transition: "background 0.2s, border 0.2s, width 0.2s, height 0.2s, transform 0.18s cubic-bezier(.4,2,.6,1)",
-        backdropFilter: "blur(2px)",
+        boxShadow: "0 0 16px 2px rgba(255,255,255,0.1)",
         mixBlendMode: "exclusion",
+        backdropFilter: "blur(2px)",
+        zIndex: 9999,
+        transform: "translate3d(-9999px, -9999px, 0) scale(1)",
+        transition: "background 0.2s, border 0.2s",
       }}
     />
   )

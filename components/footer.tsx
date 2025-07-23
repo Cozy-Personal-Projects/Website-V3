@@ -10,7 +10,7 @@ function ScrollLogo() {
     <img
       src="/cozy-navbar.webp"
       alt="Cozy logo"
-      className={`h-10 w-auto inline cursor-pointer transition-transform duration-200 ${
+      className={`h-10 w-auto inline cursor-pointer transition-transform duration-200 interactive-cta-cursor ${
         active ? "scale-90" : "hover:scale-110"
       }`}
       onClick={() => {
@@ -52,16 +52,16 @@ export function Footer() {
           <div className="md:text-right">
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <div className="space-y-2">
-              <Link href="/" className="block text-gray-400 hover:text-white transition-colors">
+              <Link href="/" className="block text-gray-400 hover:text-white transition-colors interactive-cta-cursor">
                 Home
               </Link>
-              <Link href="/about" className="block text-gray-400 hover:text-white transition-colors">
+              <Link href="/about" className="block text-gray-400 hover:text-white transition-colors interactive-cta-cursor">
                 About
               </Link>
-              <Link href="/designs" className="block text-gray-400 hover:text-white transition-colors">
+              <Link href="/designs" className="block text-gray-400 hover:text-white transition-colors interactive-cta-cursor">
                 Designs
               </Link>
-              <Link href="/contact" className="block text-gray-400 hover:text-white transition-colors">
+              <Link href="/contact" className="block text-gray-400 hover:text-white transition-colors interactive-cta-cursor">
                 Contact
               </Link>
             </div>
