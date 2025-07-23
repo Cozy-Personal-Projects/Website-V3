@@ -11,19 +11,8 @@ interface InteractiveButtonProps {
 }
 
 export function InteractiveButton({ children, className = "", variant = "primary", onClick }: InteractiveButtonProps) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-
-  const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
-    if (!buttonRef.current) return
-
-    const rect = buttonRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-
-    setMousePosition({ x, y })
-  }
 
   const baseClasses =
     variant === "primary"
@@ -33,8 +22,7 @@ export function InteractiveButton({ children, className = "", variant = "primary
   return (
     <button
       ref={buttonRef}
-      className={`${baseClasses} ${className}`}
-      onMouseMove={handleMouseMove}
+      className={`interactive-cta-cursor ${baseClasses} ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
@@ -54,17 +42,7 @@ export function InteractiveButton({ children, className = "", variant = "primary
         ></div>
       )}
 
-      {/* Mouse-following highlight - More transparent */}
-      {isHovered && (
-        <div
-          className="absolute w-10 h-10 border-2 border-orange-300 rounded-full opacity-30 pointer-events-none"
-          style={{
-            left: mousePosition.x - 20,
-            top: mousePosition.y - 20,
-            transition: "none",
-          }}
-        />
-      )}
+      {/* Removed mouse-following highlight */}
     </button>
   )
 }

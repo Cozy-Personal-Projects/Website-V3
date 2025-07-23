@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "../styles/style.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { GridBackground } from "@/components/grid-background"
+import { CursorHighlight } from "@/components/cursor-highlight"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <div className="min-h-screen bg-black relative">
             <GridBackground />
+            <CursorHighlight />
             <div className="relative z-10">{children}</div>
           </div>
         </ThemeProvider>

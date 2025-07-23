@@ -9,6 +9,23 @@ import { Textarea } from "@/components/ui/textarea"
 import { InteractiveButton } from "@/components/interactive-button"
 import { Footer } from "@/components/footer"
 
+function ScrollLogo() {
+  const [active, setActive] = useState(false)
+  return (
+    <img
+      src="/cozy-navbar.webp"
+      alt="Cozy logo"
+      className={`w-full h-auto cursor-pointer transition-transform duration-200 ${active ? "scale-90" : "hover:scale-110"}`}
+      onClick={() => {
+        setActive(true)
+        window.scrollTo({ top: 0, behavior: "smooth" })
+        setTimeout(() => setActive(false), 150)
+      }}
+      onMouseLeave={() => setActive(false)}
+    />
+  )
+}
+
 export default function ContactPage() {
   // Form state
   const [form, setForm] = useState({
@@ -48,11 +65,11 @@ export default function ContactPage() {
     <div className="min-h-screen text-white">
       {/* Navigation */}
       <nav className="flex items-center justify-between p-6 lg:px-12">
-<div className="w-[120px]">
-  <Link href="/">
-    <img src="/cozy-navbar.webp" alt="Cozy logo" className="w-full h-auto" />
-  </Link>
-</div>
+        <div className="w-[120px]">
+          <Link href="/">
+            <ScrollLogo />
+          </Link>
+        </div>
         <div className="hidden md:flex items-center space-x-8">
           <Link href="/" className="text-gray-300 hover:text-white transition-colors">
             Home
@@ -286,9 +303,7 @@ export default function ContactPage() {
       </section>
 
       {/* Footer */}
-      <Footer>
-        <img src="/cozy-navbar.webp" alt="Cozy logo" className="h-6 w-auto inline" />
-      </Footer>
+      <Footer />
     </div>
   )
 }

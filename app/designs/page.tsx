@@ -4,7 +4,24 @@ import Link from "next/link"
 import { ArrowLeft, ExternalLink, X } from "lucide-react"
 import { InteractiveButton } from "@/components/interactive-button"
 import { ContactButton } from "@/components/contact-button"
-import { useState } from "react"
+import React, { useState } from "react"
+
+function ScrollLogo() {
+  const [active, setActive] = useState(false)
+  return (
+    <img
+      src="/cozy-navbar.webp"
+      alt="Cozy logo"
+      className={`w-full h-auto cursor-pointer transition-transform duration-200 ${active ? "scale-90" : "hover:scale-110"}`}
+      onClick={() => {
+        setActive(true)
+        window.scrollTo({ top: 0, behavior: "smooth" })
+        setTimeout(() => setActive(false), 150)
+      }}
+      onMouseLeave={() => setActive(false)}
+    />
+  )
+}
 
 export default function DesignsPage() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
@@ -14,7 +31,7 @@ export default function DesignsPage() {
       id: 1,
       title: "Cozy Website V1",
       category: "Web Design",
-      year: "July 2025",
+      year: "2025",
       description: "A modern website made for me, the first version.",
       image: "/projects/cozy-website-v1.webp", // Added image path
     },
@@ -76,7 +93,7 @@ export default function DesignsPage() {
       <nav className="flex items-center justify-between p-6 lg:px-12">
         <div className="w-[120px]">
           <Link href="/">
-            <img src="/cozy-navbar.webp" alt="Cozy logo" className="w-full h-auto" />
+            <ScrollLogo />
           </Link>
         </div>
         <div className="hidden md:flex items-center space-x-8">

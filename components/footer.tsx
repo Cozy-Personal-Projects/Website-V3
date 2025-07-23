@@ -1,8 +1,27 @@
 "use client"
 
 import Link from "next/link"
+import React, { useState } from "react"
 import { useRouter } from "next/navigation"
-import React from "react"
+
+function ScrollLogo() {
+  const [active, setActive] = useState(false)
+  return (
+    <img
+      src="/cozy-navbar.webp"
+      alt="Cozy logo"
+      className={`h-10 w-auto inline cursor-pointer transition-transform duration-200 ${
+        active ? "scale-90" : "hover:scale-110"
+      }`}
+      onClick={() => {
+        setActive(true)
+        window.scrollTo({ top: 0, behavior: "smooth" })
+        setTimeout(() => setActive(false), 150)
+      }}
+      onMouseLeave={() => setActive(false)}
+    />
+  )
+}
 
 export function Footer() {
   const router = useRouter()
@@ -21,12 +40,7 @@ export function Footer() {
           <div className="space-y-4">
             <div className="text-3xl font-black tracking-wider">
               {/* Logo clickable, scrolls to top */}
-              <img
-                src="/cozy-navbar.webp"
-                alt="Cozy logo"
-                className="h-10 w-auto inline cursor-pointer"
-                onClick={handleLogoClick}
-              />
+              <ScrollLogo />
             </div>
             <p className="text-gray-400 max-w-md leading-relaxed">
               Creating unique digital experiences through beautiful design and innovation. Let's build
