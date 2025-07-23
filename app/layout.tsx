@@ -11,7 +11,10 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Cozys Designs",
   description: "Design portfolio showcasing my work in UI/UX, web design, and digital products.",
-    generator: 'v0.dev'
+    generator: 'v0.dev',
+    other: {
+      "darkreader-lock": "true",
+    }
 }
 
 export default function RootLayout({
