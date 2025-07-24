@@ -82,8 +82,9 @@ export default function HomePage() {
         </Link>
       </nav>
 
+
       {/* Hero Section - Better Centered */}
-      <section className="px-6 lg:px-12 py-20 min-h-[80vh] flex items-center justify-center">
+      <section className="px-6 lg:px-12 py-20 min-h-[85vh] flex items-center justify-center">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-4xl lg:text-7xl font-bold mb-8 leading-tight animate-fade-in-up">
             Building{" "}
@@ -126,9 +127,22 @@ export default function HomePage() {
       </section>
 
       {/* Scroll Indicator */}
-      <div className="text-center pb-10 animate-fade-in animate-delay-600">
-        <ChevronDown className="w-6 h-6 mx-auto text-gray-400 animate-bounce" />
-      </div>
+<div className="text-center pb-10 animate-fade-in animate-delay-600">
+  <button
+    type="button"
+    className="interactive-cta-cursor mx-auto text-gray-400 animate-bounce"
+    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+    onClick={() => {
+      window.scrollBy({ top: 800, behavior: "smooth" }) // scroll down by 800px smoothly
+    }}
+    onMouseDown={e => (e.currentTarget.style.transform = "scale(0.9)")}
+    onMouseUp={e => (e.currentTarget.style.transform = "scale(1)")}
+    onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
+    aria-label="Scroll down"
+  >
+    <ChevronDown className="w-6 h-6" />
+  </button>
+</div>
 
       {/* Featured Work Section */}
       <section className="px-6 lg:px-12 pb-20">

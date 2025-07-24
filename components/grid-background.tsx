@@ -1,64 +1,77 @@
 "use client"
+import { useState, useEffect } from "react"
+import { cn } from "@/lib/utils"
 
 export function GridBackground() {
-  // Generate filled squares spread across the entire screen (20% coverage)
-  const filledSquares = [
-    { x: 2, y: 3 },
-    { x: 7, y: 1 },
-    { x: 4, y: 6 },
-    { x: 11, y: 4 },
-    { x: 1, y: 8 },
-    { x: 9, y: 7 },
-    { x: 6, y: 2 },
-    { x: 13, y: 5 },
-    { x: 3, y: 9 },
-    { x: 8, y: 3 },
-    { x: 12, y: 8 },
-    { x: 5, y: 1 },
-    { x: 10, y: 6 },
-    { x: 1, y: 4 },
-    { x: 14, y: 2 },
-    { x: 6, y: 9 },
-    { x: 9, y: 1 },
-    { x: 4, y: 7 },
-    { x: 11, y: 3 },
-    { x: 7, y: 8 },
-    // Add more squares across the right side
-    { x: 15, y: 1 },
-    { x: 18, y: 4 },
-    { x: 16, y: 7 },
-    { x: 20, y: 2 },
-    { x: 17, y: 9 },
-    { x: 19, y: 5 },
-    { x: 21, y: 8 },
-    { x: 22, y: 3 },
-    { x: 24, y: 6 },
-    { x: 23, y: 1 },
-    { x: 25, y: 4 },
-    { x: 26, y: 7 },
-    { x: 28, y: 2 },
-    { x: 27, y: 9 },
-    { x: 29, y: 5 },
-  ]
+  const [mounted, setMounted] = useState(false)  // Track if we’re on client
+  const [filledCells, setFilledCells] = useState<{ [key: string]: boolean }>({})
+
+  const getGridDimensions = () => {
+    if (typeof window === "undefined") return { cols: 20, rows: 10 }
+    const cols = Math.ceil(window.innerWidth / 60)
+    const rows = Math.ceil(window.innerHeight / 60)
+    return { cols, rows }
+  }
+
+  const generateRandomCells = () => {
+    const { cols, rows } = getGridDimensions()
+    const newFilledCells: { [key: string]: boolean } = {}
+    const totalCells = cols * rows
+    const fillCount = Math.floor(totalCells * 0.15)
+
+    while (Object.keys(newFilledCells).length < fillCount) {
+      const x = Math.floor(Math.random() * cols)
+      const y = Math.floor(Math.random() * rows)
+      newFilledCells[`${x}-${y}`] = true
+    }
+    return newFilledCells
+  }
+
+  useEffect(() => {
+    setMounted(true)               // Mark mounted after hydration
+    setFilledCells(generateRandomCells())
+
+    const handleResize = () => {
+      setFilledCells(generateRandomCells())
+    }
+
+    window.addEventListener("resize", handleResize)
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
+  // If not mounted yet (on server), render nothing or a placeholder
+  if (!mounted) return null
+
+  const renderCells = () => {
+    const cells = []
+    const { cols, rows } = getGridDimensions()
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const isActive = filledCells[`${x}-${y}`]
+        cells.push(
+          <div
+            key={`${x}-${y}`}
+            className={cn(
+              "absolute w-[58px] h-[58px] transition-opacity duration-500",
+              isActive ? "bg-gray-800/10" : "bg-transparent"
+            )}
+            style={{
+              left: `${x * 60 + 2}px`,
+              top: `${y * 60 + 2}px`,
+            }}
+          />
+        )
+      }
+    }
+    return cells
+  }
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
-      {/* Base grid pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
-
-      {/* Filled squares - dark and barely visible */}
-      {filledSquares.map((square, index) => (
-        <div
-          key={index}
-          className="absolute w-[58px] h-[58px] bg-gray-800/10"
-          style={{
-            left: `${square.x * 60 + 2}px`,
-            top: `${square.y * 60 + 2}px`,
-          }}
-        />
-      ))}
-
-      {/* Gradient overlays */}
+      {renderCells()}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black"></div>
       <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-transparent to-transparent"></div>
       <div className="absolute inset-0 bg-gradient-to-l from-orange-500/20 via-transparent to-transparent"></div>
