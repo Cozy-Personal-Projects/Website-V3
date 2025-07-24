@@ -71,13 +71,13 @@ export default function ContactPage() {
           </Link>
         </div>
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="/" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/" className="text-gray-300 hover:text-white transition-colors interactive-cta-cursor">
             Home
           </Link>
-          <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/about" className="text-gray-300 hover:text-white transition-colors interactive-cta-cursor">
             About
           </Link>
-          <Link href="/designs" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/designs" className="text-gray-300 hover:text-white transition-colors interactive-cta-cursor">
             Designs
           </Link>
         </div>
