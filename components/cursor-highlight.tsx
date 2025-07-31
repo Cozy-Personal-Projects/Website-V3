@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 export function CursorHighlight() {
   const cursorRef = useRef<HTMLDivElement>(null)
@@ -12,10 +12,23 @@ export function CursorHighlight() {
   const targetScale = useRef(1)
   const isHovering = useRef(false)
   const rafRef = useRef<number | null>(null)
+  const [showCursor, setShowCursor] = useState(false)
 
+  // Detect if device is touch-enabled
+  useEffect(() => {
+    const isTouchDevice =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(pointer: coarse)").matches
+
+    if (!isTouchDevice) {
+      setShowCursor(true)
+    }
+  }, [])
 
   // Update target position on mouse move
   useEffect(() => {
+    if (!showCursor) return
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.current = e.clientX
       mouseY.current = e.clientY
@@ -23,10 +36,11 @@ export function CursorHighlight() {
 
     document.addEventListener("mousemove", handleMouseMove)
     return () => document.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+  }, [showCursor])
 
   // Detect hovering over interactive elements
   useEffect(() => {
+    if (!showCursor) return
     const handlePointerMove = (e: PointerEvent) => {
       const el = (e.target as HTMLElement)?.closest(".interactive-cta-cursor")
       const hoverNow = !!el
@@ -38,10 +52,12 @@ export function CursorHighlight() {
 
     document.addEventListener("pointermove", handlePointerMove)
     return () => document.removeEventListener("pointermove", handlePointerMove)
-  }, [])
+  }, [showCursor])
 
   // Animate cursor smoothly
   useEffect(() => {
+    if (!showCursor) return
+
     const animate = () => {
       currentX.current += (mouseX.current - currentX.current) * 0.2
       currentY.current += (mouseY.current - currentY.current) * 0.2
@@ -59,17 +75,20 @@ export function CursorHighlight() {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
-  }, [])
+  }, [showCursor])
 
   // Hide system cursor
   useEffect(() => {
+    if (!showCursor) return
     const style = document.createElement("style")
     style.innerHTML = `* { cursor: none !important; }`
     document.head.appendChild(style)
     return () => {
       document.head.removeChild(style)
     }
-  }, [])
+  }, [showCursor])
+
+  if (!showCursor) return null
 
   return (
     <div
