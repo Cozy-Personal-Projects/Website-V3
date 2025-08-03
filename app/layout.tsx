@@ -27,7 +27,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <div className="min-h-screen bg-black relative">
-            <GridBackground />
+            <GridBackground isParty={false} />
             <CursorHighlight />
             <div className="relative z-10">{children}</div>
           </div>

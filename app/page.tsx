@@ -5,20 +5,65 @@ import { InteractiveButton } from "@/components/interactive-button"
 import { Footer } from "@/components/footer"
 import { ContactButton } from "@/components/contact-button"
 import React, { useState } from "react"
+import confetti from "canvas-confetti"
 
-// Client component for logo scroll-to-top
 function ScrollLogo() {
   const [active, setActive] = useState(false)
+  const [clickCount, setClickCount] = useState(0)
+
+  const handleClick = () => {
+    const newCount = clickCount + 1
+    setClickCount(newCount)
+
+    setActive(true)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+    setTimeout(() => setActive(false), 150)
+
+    if (newCount === 10) {
+      triggerPartyMode()
+      setClickCount(0)
+    }
+  }
+
+  const triggerPartyMode = () => {
+    const duration = 4000
+    const end = Date.now() + duration
+
+    const interval = setInterval(() => {
+      // Left corner
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 60,
+        origin: { x: 0, y: 1 },
+      })
+
+      // Right corner
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 60,
+        origin: { x: 1, y: 1 },
+      })
+
+      if (Date.now() > end) clearInterval(interval)
+    }, 200)
+
+    // Add visual background effect
+    document.body.classList.add("party-mode")
+    setTimeout(() => {
+      document.body.classList.remove("party-mode")
+    }, duration)
+  }
+
   return (
     <img
       src="/cozy-navbar.webp"
       alt="Cozy logo"
-      className={`w-full h-auto interactive-cta-cursor cursor-pointer transition-transform duration-200 ${active ? "scale-90" : "hover:scale-110"}`}
-      onClick={() => {
-        setActive(true)
-        window.scrollTo({ top: 0, behavior: "smooth" })
-        setTimeout(() => setActive(false), 150)
-      }}
+      className={`w-full h-auto interactive-cta-cursor cursor-pointer transition-transform duration-200 ${
+        active ? "scale-90" : "hover:scale-110"
+      }`}
+      onClick={handleClick}
       onMouseLeave={() => setActive(false)}
     />
   )
@@ -88,14 +133,14 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-4xl lg:text-7xl font-bold mb-8 leading-tight animate-fade-in-up">
             Building{" "}
-            <span className="bg-gradient-to-r from-orange-500 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 via-orange-500 to-orange-600 bg-clip-text text-transparent rainbow-text">
               Unique Experiences
             </span>
             <br />
             for Digital products
           </h1>
           <p className="text-gray-300 text-lg lg:text-xl mb-10 max-w-4xl mx-auto leading-relaxed animate-fade-in-up animate-delay-200">
-            I'm a <span className="text-orange-500">designer</span> who focuses on making UIs that are clean and easy to use, along with thoughtful product design. I mix good looks with usability to create digital experiences that work well and look great.
+            I'm a <span className="text-orange-500 rainbow-text">designer</span> who focuses on making UIs that are clean and easy to use, along with thoughtful product design. I mix good looks with usability to create digital experiences that work well and look great.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16 animate-fade-in-up animate-delay-400">
             <Link href="/designs">

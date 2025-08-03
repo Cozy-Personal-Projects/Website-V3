@@ -3,8 +3,9 @@ import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 
 export function GridBackground() {
-  const [mounted, setMounted] = useState(false)  // Track if we’re on client
+  const [mounted, setMounted] = useState(false)
   const [filledCells, setFilledCells] = useState<{ [key: string]: boolean }>({})
+  const [isParty, setIsParty] = useState(false)
 
   const getGridDimensions = () => {
     if (typeof window === "undefined") return { cols: 20, rows: 10 }
@@ -28,7 +29,7 @@ export function GridBackground() {
   }
 
   useEffect(() => {
-    setMounted(true)               // Mark mounted after hydration
+    setMounted(true)
     setFilledCells(generateRandomCells())
 
     const handleResize = () => {
@@ -41,7 +42,18 @@ export function GridBackground() {
     }
   }, [])
 
-  // If not mounted yet (on server), render nothing or a placeholder
+  useEffect(() => {
+    const body = document.body
+    const observer = new MutationObserver(() => {
+      setIsParty(body.classList.contains("party-mode"))
+    })
+
+    observer.observe(body, { attributes: true, attributeFilter: ["class"] })
+    setIsParty(body.classList.contains("party-mode"))
+
+    return () => observer.disconnect()
+  }, [])
+
   if (!mounted) return null
 
   const renderCells = () => {
@@ -67,16 +79,19 @@ export function GridBackground() {
     }
     return cells
   }
+return (
+  <div className="absolute inset-0 z-0 overflow-hidden">
+    <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
+    {renderCells()}
+      <>
+        {/* Normal orange side glows */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
 
-  return (
-    <div className="absolute inset-0 z-0 overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
-      {renderCells()}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-transparent to-transparent"></div>
-      <div className="absolute inset-0 bg-gradient-to-l from-orange-500/20 via-transparent to-transparent"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-orange-500/10"></div>
-    </div>
-  )
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-l from-orange-500/20 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-orange-500/10"></div>
+      </>
+  </div>
+)
 }

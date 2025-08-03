@@ -16,9 +16,7 @@
   ::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.35);
   }
-  
 }
-
 
 @layer base {
   :root {
@@ -89,85 +87,49 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-500;
   }
 }
 
 /* Clean Grid Pattern Background */
 .bg-grid-pattern {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.15) 2px, transparent 2px),
+  /* Grid lines always on top */
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.15) 2px, transparent 2px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 2px, transparent 2px);
   background-size: 60px 60px;
+  background-repeat: repeat;
 }
 
-/* Enhanced Image Fades */
-.img-fade {
-  position: relative;
-  overflow: hidden;
+@keyframes rainbowPulse {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
 
-.img-fade::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4), transparent);
-  z-index: 10;
+.animate-rainbow {
+  animation: rainbowPulse 6s linear infinite;
 }
 
-.img-fade::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.4), transparent, rgba(0, 0, 0, 0.4));
-  z-index: 10;
+/* Optional: rainbow text for colored headings */
+body.party-mode .rainbow-text {
+  background: linear-gradient(
+    90deg,
+    #ff7777,
+    #ffb151,
+    #faff74,
+    #87ff6f,
+    #52f1ff,
+    #8555ff,
+    #ff59ff
+  );
+  background-size: 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: rainbowText 6s linear infinite;
 }
 
-/* Animations with proper initial states */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-fade-in-up {
-  opacity: 0;
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.animate-fade-in {
-  opacity: 0;
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-delay-200 {
-  animation-delay: 0.2s;
-}
-
-.animate-delay-400 {
-  animation-delay: 0.4s;
-}
-
-.animate-delay-600 {
-  animation-delay: 0.6s;
-}
-@keyframes fadeInOut {
-  0% { opacity: 0; }
-  5% { opacity: 1; }
-  45% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 0; }
+@keyframes rainbowText {
+  0% { background-position: 0%; }
+  100% { background-position: 100%; }
 }
