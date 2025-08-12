@@ -93,7 +93,7 @@ export default function HomePage() {
       title: "Roblox Interface Redesign Game",
       category: "UI/UX Design",
       year: "2023",
-      description: "An interface made for Roblox, inspired by the Steam Deck.",
+      description: "A unique game page UI designed for Roblox in a Steam UI style.",
       image: "/projects/roblox-2.webp",
     },
   ]
@@ -200,7 +200,7 @@ export default function HomePage() {
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="bg-zinc-900/80 rounded-xl overflow-hidden hover:bg-zinc-800/90 transition-colors group"
+                className="bg-zinc-900/80 rounded-xl overflow-hidden hover:bg-zinc-800/90 transition-colors group transform transition duration-500 ease-out"
               >
                 {/* Image with modal open on click */}
                 <div
@@ -237,29 +237,44 @@ export default function HomePage() {
 
       {/* Image Modal */}
       {selectedImage && selectedProject && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4" onClick={closeImageModal}>
-          <div className="relative w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            {/* Close Button */}
+        <div
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={closeImageModal}
+        >
+          <div
+            className="relative w-full max-w-5xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={closeImageModal}
               className="absolute -top-16 right-0 text-white hover:text-orange-500 transition-colors z-10"
             >
               <X className="w-8 h-8" />
             </button>
-            {/* Image Container */}
-            <div className="relative bg-zinc-900 rounded-lg overflow-hidden">
-              <div className="aspect-video relative">
+
+            <div className="relative bg-zinc-900/90 rounded-lg overflow-hidden">
+              <div className="aspect-video relative overflow-hidden rounded-t-lg">
+                {/* Blurred background inside image box only */}
+                <img
+                  src={selectedProject.image}
+                  alt=""
+                  aria-hidden
+                  className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-100"
+                />
+
+                {/* Main focused image */}
                 <img
                   src={selectedProject.image}
                   alt={selectedProject.title}
-                  className="w-full h-full object-cover"
+                  className="relative z-10 w-full h-full object-contain"
                 />
-                <div className="absolute inset-0 bg-black/20"></div>
               </div>
-              {/* Project Info */}
-              <div className="p-6 bg-zinc-900">
+
+              <div className="p-6 bg-zinc-900/90">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-orange-500 text-sm font-semibold">{selectedProject.category}</span>
+                  <span className="text-orange-500 text-sm font-semibold">
+                    {selectedProject.category}
+                  </span>
                   <span className="text-gray-400 text-sm">{selectedProject.year}</span>
                 </div>
                 <h3 className="text-2xl font-bold mb-3">{selectedProject.title}</h3>

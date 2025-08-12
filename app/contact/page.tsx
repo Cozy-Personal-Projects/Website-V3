@@ -278,24 +278,27 @@ export default function ContactPage() {
           <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
           <div className="space-y-6">
             <div className="bg-zinc-800 p-6 rounded-xl">
-              <h3 className="font-semibold mb-2">What's your typical project timeline?</h3>
+              <h3 className="font-semibold mb-2">What's your typical project start to finish?</h3>
               <p className="text-gray-400">
-                Project timelines vary depending on scope, but most projects take 2-6 weeks from start to finish. I'll
-                provide a detailed timeline during our initial consultation.
+                How long a project takes depends on its complexity and features. A simple project can take 1-2 weeks, while larger projects may take 2-4 weeks or more. We'll talk about what you need during our initial chat and establish a deadline that works for both of us.
               </p>
             </div>
             <div className="bg-zinc-800 p-6 rounded-xl">
-              <h3 className="font-semibold mb-2">Do you work with clients remotely?</h3>
+              <h3 className="font-semibold mb-2">Why do you answer on Discord faster?</h3>
               <p className="text-gray-400">
-                I work with clients worldwide and have a proven process for remote collaboration using modern design and
-                communication tools.
+                I prioritize communication on Discord because it's a platform I'm highly active on. It allows for quicker responses and more dynamic conversations compared to email.
               </p>
             </div>
             <div className="bg-zinc-800 p-6 rounded-xl">
               <h3 className="font-semibold mb-2">What information do you need to get started?</h3>
               <p className="text-gray-400">
-                I'll need to understand your goals, target audience, any existing brand guidelines, and examples of
-                designs you like. We'll cover all this in our initial discussion.
+                I'll need to understand your plans, any existing brand guidelines, and examples of designs you like. This helps me create a design that aligns with your vision.
+              </p>
+            </div>
+            <div className="bg-zinc-800 p-6 rounded-xl">
+              <h3 className="font-semibold mb-2">Do you code the projects?</h3>
+              <p className="text-gray-400">
+                No, I focus on the design aspect, since coding requires a different skill set and expertise.
               </p>
             </div>
           </div>

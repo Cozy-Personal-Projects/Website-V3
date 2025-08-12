@@ -165,7 +165,7 @@ export default function DesignsPage() {
             My <span className="text-orange-500">Designs</span>
           </h1>
           <p className="text-gray-300 text-xl mb-8 leading-relaxed">
-            A collection of projects that showcase my approach to creating thoughtful, user-centered design solutions.
+            A collection of projects I've made for myself or for commissions in the past that showcase my design skills and creativity.
           </p>
         </div>
       </section>

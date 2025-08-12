@@ -68,8 +68,7 @@ export default function AboutPage() {
             </span>
           </h1>
           <p className="text-gray-300 text-xl mb-8 leading-relaxed">
-            I'm a passionate designer who believes in creating digital experiences that feel both beautiful and
-            intuitive.
+            I'm a passionate designer who believes in creating digital experiences that feel both beautiful and functional.
           </p>
         </div>
       </section>
@@ -103,7 +102,7 @@ export default function AboutPage() {
                     I've always loved bringing designs to life in apps and on websites. It feels great when someone thinks, "Wow, that looks good!" I'm lucky to work in such a creative field!
                    </p>
                   <p>
-                    Over the years, I've designed for many clients, big and small. My work includes UI/UX, logos, banners, card and board games, and even creating worlds for a game called "Roblox".
+                    Over the years, I've designed for many clients, big and small. My work includes UI/UX, logos, banners, card and board games, and even creating experiences for a game called "Roblox".
                   </p>
                   <p>
                     When I'm not designing, you'll find me on Discord or playing games. Gaming is my favorite way to relax, and I even see myself potentially becoming a game developer in the near future.
